@@ -1,5 +1,5 @@
 // https://github.com/keybase/client/blob/master/go/libkb/secwords.go
-export const wordList = [
+export const KBWordList = [
   "abandon",
   "ability",
   "able",

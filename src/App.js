@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { wordList } from "./data";
+import { KBWordList } from "./wordlist_keybase";
+import { EFFLongWordList } from "./wordlist_eff";
+
+let wordList = new Set([...KBWordList, ...EFFLongWordList]);
+
+wordList = [...wordList];
 
 function App() {
   const [passphrase, setPassphrase] = useState("");
@@ -12,8 +17,8 @@ function App() {
 
     if (isNaN(tmpWordLength)) {
       tmpWordLength = 12;
-    } else if (tmpWordLength > wordList.length) {
-      tmpWordLength = wordList.length;
+    } else if (tmpWordLength > 999) {
+      tmpWordLength = 999;
     }
 
     setWordLength(tmpWordLength);
@@ -30,7 +35,7 @@ function App() {
 
     let tmpPassphrase = "";
 
-    for (let ii = 0; ii < wordLength; ii++) {
+    for (let ii = 0; ii < tmpWordLength; ii++) {
       if (!tmpPassphrase) {
         tmpPassphrase = wordList[wordIndex[ii]];
       } else {
@@ -61,7 +66,7 @@ function App() {
 
         <form className="form">
           <p>
-            Word length = &nbsp;
+            Passphrase length = &nbsp;
             <input
               type="number"
               id="wordLength"
@@ -77,9 +82,20 @@ function App() {
           {passphrase.length ? "Regenerate" : "Generate"}
         </button>
 
-        <p style={{ padding: "1em", paddingBottom: 0 }}>
+        {passphrase ? <p
+          style={{
+            padding: "1em",
+            margin: "0.5em",
+            marginTop: "1em",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderRadius: "5px",
+            borderColor: "lightgrey",
+            backgroundColor: "rgba(10, 0, 0, 0.03)"
+          }}
+        >
           <code>{passphrase}</code>
-        </p>
+        </p> : null}
 
         {passphrase.length ? (
           <button className="btn" onClick={CopyToClipboard}>
