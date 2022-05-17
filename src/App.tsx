@@ -2,9 +2,8 @@ import { useState } from "react";
 import { KBWordList } from "./wordlist_keybase";
 import { EFFLongWordList } from "./wordlist_eff";
 
-let wordList = new Set([...KBWordList, ...EFFLongWordList]);
-
-wordList = [...wordList];
+const combinedList = new Set([...KBWordList, ...EFFLongWordList]);
+const wordList = Array.from(combinedList);
 
 function App() {
   const [passphrase, setPassphrase] = useState("");
@@ -12,13 +11,13 @@ function App() {
   const [showCopied, setShowCopied] = useState(false);
 
   const GeneratePassphrase = () => {
-    const wordIndex = [];
-    let tmpWordLength = parseInt(wordLength);
+    const wordIndex: Array<number> = [];
+    let tmpWordLength = wordLength;
 
-    if (isNaN(tmpWordLength)) {
+    if (isNaN(tmpWordLength) || tmpWordLength < 0) {
       tmpWordLength = 12;
-    } else if (tmpWordLength > 999) {
-      tmpWordLength = 999;
+    } else if (tmpWordLength > 99) {
+      tmpWordLength = 99;
     }
 
     setWordLength(tmpWordLength);
@@ -54,9 +53,9 @@ function App() {
     navigator.clipboard.writeText(passphrase);
   };
 
-  const HandleChange = (e) => {
+  const HandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setWordLength(value);
+    setWordLength(parseInt(value));
   };
 
   return (
@@ -71,7 +70,7 @@ function App() {
               type="number"
               id="wordLength"
               name="wordLength"
-              placeholder={12}
+              placeholder={"12"}
               value={wordLength}
               onChange={HandleChange}
               style={{ width: "60px" }}
@@ -82,26 +81,28 @@ function App() {
           {passphrase.length ? "Regenerate" : "Generate"}
         </button>
 
-        {passphrase ? <p
-          style={{
-            padding: "1em",
-            margin: "0.5em",
-            marginTop: "1em",
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderRadius: "5px",
-            borderColor: "lightgrey",
-            backgroundColor: "rgba(10, 0, 0, 0.03)"
-          }}
-        >
-          <code>{passphrase}</code>
-        </p> : null}
+        {passphrase && (
+          <p
+            style={{
+              padding: "1em",
+              margin: "0.5em",
+              marginTop: "1em",
+              borderWidth: "1px",
+              borderStyle: "solid",
+              borderRadius: "5px",
+              borderColor: "lightgrey",
+              backgroundColor: "rgba(10, 0, 0, 0.03)",
+            }}
+          >
+            <code>{passphrase}</code>
+          </p>
+        )}
 
-        {passphrase.length ? (
+        {passphrase.length > 0 && (
           <button className="btn" onClick={CopyToClipboard}>
             {showCopied ? "Copied" : "Copy"}
           </button>
-        ) : null}
+        )}
       </div>
       <footer>
         Built and maintained by{" "}

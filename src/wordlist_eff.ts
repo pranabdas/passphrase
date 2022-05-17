@@ -1,6 +1,6 @@
 // EFF's Long Wordlist from https://www.eff.org/dice
 // eslint-disable-next-line import/prefer-default-export
-export const EFFLongWordList = [
+export const EFFLongWordList:Array<string> = [
   'abacus',
   'abdomen',
   'abdominal',
