@@ -74,10 +74,11 @@ function App() {
               value={wordLength}
               onChange={HandleChange}
               style={{ width: "60px" }}
+              data-cy="input-word-length"
             />
           </p>
         </form>
-        <button className="btn" onClick={GeneratePassphrase}>
+        <button className="btn" data-cy="generate-button" onClick={GeneratePassphrase}>
           {passphrase.length ? "Regenerate" : "Generate"}
         </button>
 
@@ -94,7 +95,7 @@ function App() {
               backgroundColor: "rgba(10, 0, 0, 0.03)",
             }}
           >
-            <code>{passphrase}</code>
+            <code data-cy="passphrase">{passphrase}</code>
           </p>
         )}
 
