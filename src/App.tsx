@@ -71,7 +71,7 @@ function App() {
               id="wordLength"
               name="wordLength"
               placeholder={"12"}
-              value={wordLength}
+              value={wordLength || ""}
               onChange={HandleChange}
               style={{ width: "60px" }}
               data-cy="input-word-length"

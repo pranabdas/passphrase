@@ -15,7 +15,7 @@ describe("Default passphrase", () => {
     cy.get('[data-cy="passphrase"]')
       .invoke("text")
       .then((text) => {
-        passphraseLength = text.split(" ").length;
+        passphraseLength = text.split(" ").filter((x) => x).length;
       });
 
     assert(inputWordLength === passphraseLength);
