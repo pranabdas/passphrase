@@ -1,6 +1,6 @@
 describe("Default passphrase", () => {
   it("checks default passphrase has default word length", () => {
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
 
     let inputWordLength = 0;
     cy.get('[data-cy="input-word-length"]')

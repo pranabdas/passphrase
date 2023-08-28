@@ -1,11 +1,13 @@
 describe("Change passphrase length", () => {
   it("input passphrase length and check word length", () => {
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
 
     const wordLength = 15;
 
-    cy.get('[data-cy="input-word-length"]').clear();
-    cy.get('[data-cy="input-word-length"]').type(wordLength.toString());
+    cy.get('[data-cy="input-word-length"]').as("inputWordLength");
+
+    cy.get("@inputWordLength").clear();
+    cy.get("@inputWordLength").type(wordLength.toString());
     cy.get('[data-cy="generate-button"]').click();
 
     cy.get('[data-cy="passphrase"]')
